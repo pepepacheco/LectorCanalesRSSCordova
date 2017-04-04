@@ -15,4 +15,13 @@ canales.read = function( index ) {
     }
 };
 
+canales.update = function ( index, canal_actualizado) {
+    
+};
+
+canales.delete = function ( index ) {
+    
+};
+
+
 
