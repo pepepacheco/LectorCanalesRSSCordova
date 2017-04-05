@@ -19,8 +19,7 @@
 var app = {
     // Application Constructor
     initialize: function() {
-        rssUtil.create("http://www.ideal.es/jaen/rss/2.0/portada","Ideal Jaen");
-        rssUtil.read("#noticias");
+       
         // document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
     },
 

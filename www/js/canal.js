@@ -35,17 +35,25 @@ canal.checkAndDo = function (nombre, url){
                             canal.tipo = "atom";
                             canal.url = url;
                         } else {
-                            throw error;
+                            throw ExcepcionURLNoValida(url);
                         }
-                    } 
+                    }
                  });
              }
+         },
+         error: function (){
+             throw ExcepcionSinConexion(url);
          }
+         
     });
 };
 
 canal.add = function(nombre, url){
-    canal.checkAndDo(nombre, url);
+    try {
+        canal.checkAndDo(nombre, url);
+    } catch (excepcion) {
+        $.error.msg ("Error al añadir canal",excepcion.mensaje);
+    }
 };
 
 canal.update = function(nombre, tipo, url){
@@ -77,3 +85,20 @@ canal.getTipo = function (){
 canal.setTipo = function (tipo){
     canal.tipo = tipo;
 };
+
+
+function ExcepcionURLNoValida(valor) {
+   this.valor = valor;
+   this.mensaje = " La URL no es de un canal de noticias";
+   this.toString = function() {
+      return this.valor + this.mensaje;
+   };
+}
+
+function ExcepcionSinConexion(valor) {
+   this.valor = valor;
+   this.mensaje = " Error al añadir el canal, no hay conexión a Internet";
+   this.toString = function() {
+      return this.valor + this.mensaje;
+   };
+}

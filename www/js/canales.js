@@ -39,17 +39,57 @@ canales.read = function( index ) {
  * Devuelve el canal que tenga esa misma URL.
  */
 canales.findByURL = function ( url ){
-    
+    var encontrado = null;
+    for (var i=0; i< canales.lista_canales.length; i++){
+        if (canales.lista_canales[i].getUrl() === url) {
+            return (canales.lista_canales[i]);
+        }
+    }
+    return (encontrado);
 };
 
-canales.update = function ( index, canal_actualizado) {
-    
-    
+/*
+ * Devuelve en un Array los canales que tenga ese mismo tipo.
+ */
+canales.findByTipo = function ( tipo ){
+    var lista = [];
+    for (var i=0; i< canales.lista_canales.length; i++){
+        if (canales.lista_canales[i].getTipo() === tipo) {
+            lista.push(canales.lista_canales[i]);
+        }
+    }
+    return (lista);
+};
+
+
+/*
+ * Devuelve en un Array los canales que tenga ese mismo tipo.
+ */
+canales.findByNombre = function ( nombre ){
+    var lista = [];
+    for (var i=0; i< canales.lista_canales.length; i++){
+        if (canales.lista_canales[i].getNombre() === nombre) {
+            lista.push(canales.lista_canales[i]);
+        }
+    }
+    return (lista);
+};
+
+
+canales.update = function ( index, canal_actualizado) {    
+    if (!isNaN(index)) {
+        if (index>=0 && index <canales.lista_canales.length){
+            canales.lista_canales[index] = canal_actualizado;
+        }
+    }
 };
 
 canales.delete = function ( index ) {
-    
+    var arrayFinal = canales.lista_canales.splice(index, 1);
+    canales.lista_canales = arrayFinal;
 };
 
-
+canales.tam = function (){
+    return canales.lista_canales.length;
+};
 
