@@ -16,5 +16,6 @@ $.error.msg = function (titulo, mensaje) {
     $($.error.caja).empty();
     $($.error.caja).append("<h2>"+titulo+"</h2>");
     $($.error.caja).append("<p>"+mensaje+"</p>");
+    $.controller.muestra($.error.caja);
 };
 

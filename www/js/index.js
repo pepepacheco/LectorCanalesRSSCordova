@@ -29,6 +29,7 @@ var app = {
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
         this.receivedEvent('deviceready');
+       
     },
 
     // Update DOM on a Received Event
@@ -45,3 +46,11 @@ var app = {
 };
 
 app.initialize();
+
+
+$(document).ready(function (){
+    $.error.setCaja("#errores");
+    $(".panel").hide();
+    $("#start").show();
+});
+
