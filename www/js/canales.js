@@ -6,6 +6,8 @@ $.canales = {};
  * Sí se puede tener dos con el mismo nombre.
  * @type Array
  */
+
+// se va a machacar con el load()
 $.canales.lista_canales = [
     {nombre:"Ideal Jaén", url:"http://www.ideal.es/jaen/rss/atom/portada", tipo:"atom"},
     {nombre:"Slashdot", url:"http://rss.slashdot.org/Slashdot/slashdotLinuxAtom", tipo:"atom"},
@@ -18,12 +20,13 @@ $.canales.lista_canales = [
  * @param {canal} nuevo_canal El canal a añadir
  */
 $.canales.create = function(nuevo_canal) {
-    var url = nuevo_canal.getUrl();
+    var url = nuevo_canal.url;
     var existe = false;
     for (var i=0; i<$.canales.lista_canales.length; i++) {
-        if ($.canales.lista_canales[i].getUrl() === url){
+        if ($.canales.lista_canales[i].url === url){
             existe = true;
             $.canales.lista_canales[i]=nuevo_canal;
+            $.canales.save();
             // return;
         }
     }
@@ -98,3 +101,22 @@ $.canales.tam = function (){
     return $.canales.lista_canales.length;
 };
 
+
+/**
+ * Guarda a localStorage la lista de marcadores
+ * @returns {undefined}
+ */
+$.canales.save =  function(){
+    localStorage.setItem('canales', JSON.stringify($.canales.lista_canales));
+};
+
+/**
+ * Carga de localStorage la lista de marcadores
+ * @returns {undefined}
+ */
+$.canales.load =  function(){
+    $.canales.lista_canales = JSON.parse(localStorage.getItem('canales'));
+    if ($.canales.lista_canales === undefined) {
+        $.canales.lista_canales = new Array(0);
+    }
+};

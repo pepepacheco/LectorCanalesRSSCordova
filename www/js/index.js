@@ -52,5 +52,6 @@ $(document).ready(function (){
     $.error.setCaja("#errores");
     $(".panel").hide();
     $("#start").show();
+    $.controller.cargaCanales();
 });
 
