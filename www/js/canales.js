@@ -116,7 +116,8 @@ $.canales.save =  function(){
  */
 $.canales.load =  function(){
     $.canales.lista_canales = JSON.parse(localStorage.getItem('canales'));
-    if ($.canales.lista_canales === undefined) {
+    console.log($.canales.lista_canales);
+    if ($.canales.lista_canales === null) {
         $.canales.lista_canales = new Array(0);
     }
 };
