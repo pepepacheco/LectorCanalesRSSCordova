@@ -32,7 +32,10 @@ $.canales.create = function(nuevo_canal) {
     }
     if (existe === false) {
         $.canales.lista_canales.push(nuevo_canal);
+        $("#start").append('<div class="col-xs-4" style=background-color:lavender;">'+nuevo_canal.nombre+'</div>');
     }
+    
+    
 };
 
 $.canales.read = function( index ) {

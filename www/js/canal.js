@@ -25,6 +25,7 @@ $.canal.checkAndDo = function (nombre, url){
                     "tipo": "rss",
                     "url": url
                 });
+                
             } else {
                  $.ajax({
                     url: "http://query.yahooapis.com/v1/public/yql",
@@ -119,3 +120,4 @@ $.canal.ExcepcionSinConexion = function(valor) {
       return this.valor + this.mensaje;
    };
 };
+

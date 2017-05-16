@@ -19,13 +19,33 @@ $.controller.addChannel = function (){
     // si el canal "funciona" lo añadimos a marcadores
     
     // $.canales.create($.canal);
+    $(".panel").hide();
+    $("#start").show();
     
 };
 
 $.controller.cargaCanales =  function () {
     var i=0;
     $.canales.load();
+    $("#start").empty();
     for (i=0; i< $.canales.tam(); i++){
+        $("#start").append('<div class="col-xs-4" style=background-color:lavender;">'+$.canales.lista_canales[i].nombre+'</div>');
         //  <div class="col-xs-4" style="background-color:lavender;">.col-sm-4 hola que tal como va</div>
     }
+};
+
+$.controller.cargaNoticias = function (index) {
+    $("#news").empty();
+    $("#start").hide();
+    $("#news").show();
+    
+    
+};
+
+$.controller.cargaRSS =  function(){
+    
+};
+
+$.controller.cargaATOM = function(){
+    
 };
