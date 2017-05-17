@@ -26,13 +26,14 @@ $.canales.create = function(nuevo_canal) {
         if ($.canales.lista_canales[i].url === url){
             existe = true;
             $.canales.lista_canales[i]=nuevo_canal;
-            $.canales.save();
-            // return;
+            $.canales.save(); // Actualizar (nombre)
         }
     }
     if (existe === false) {
         $.canales.lista_canales.push(nuevo_canal);
-        $("#start").append('<div class="col-xs-4" style=background-color:lavender;">'+nuevo_canal.nombre+'</div>');
+        console.log(nuevo_canal);
+        $.controller.add2rejilla($.canales.lista_canales.length-1);
+        $.canales.save(); // Añadir nuevo canal
     }
     
     

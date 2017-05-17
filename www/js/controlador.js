@@ -16,8 +16,7 @@ $.controller.muestra = function(caja){
 $.controller.addChannel = function (){
     // leemos del formulario y creamos el canal con esa información
     $.canal.add($("#nombreCanal").val(), $("#urlCanal").val());
-    // si el canal "funciona" lo añadimos a marcadores
-    
+    // si el canal "funciona" lo añadimos a marcadores  
     // $.canales.create($.canal);
     $(".panel").hide();
     $("#start").show();
@@ -29,23 +28,60 @@ $.controller.cargaCanales =  function () {
     $.canales.load();
     $("#start").empty();
     for (i=0; i< $.canales.tam(); i++){
-        $("#start").append('<div class="col-xs-4" style=background-color:lavender;">'+$.canales.lista_canales[i].nombre+'</div>');
-        //  <div class="col-xs-4" style="background-color:lavender;">.col-sm-4 hola que tal como va</div>
+        // $("#start").append('<div class="col-xs-4" style=background-color:lavender;">'+$.canales.lista_canales[i].nombre+'</div>');        
+        $.controller.add2rejilla(i);
     }
+};
+
+$.controller.add2rejilla = function (index) {
+    $("#start").append('<div onclick="$.controller.cargaNoticias('+index+')" class="col-xs-4" style=background-color:lavender;">'+$.canales.lista_canales[index].nombre+'</div>');
 };
 
 $.controller.cargaNoticias = function (index) {
     $("#news").empty();
     $("#start").hide();
     $("#news").show();
-    
+    if ($.canales.lista_canales[index].tipo==="rss") {
+        $.controller.cargaRSS(index);
+    } else {  
+        if ($.canales.lista_canales[index].tipo==="atom") {
+            $.controller.cargaATOM(index);
+        }else{
+            $.error.msg("Listando noticias", "Tipo de canal desconocido." );
+            // ERROR tipo de canal desconocido
+        }
+    }
     
 };
 
-$.controller.cargaRSS =  function(){
-    
+$.controller.cargaRSS =  function(index){
+    $("#news").append('<h3>RSS: '+$.canales.lista_canales[index].nombre+'</h3>');
+    $.ajax({
+        url: "http://query.yahooapis.com/v1/public/yql",
+        jsonp: "callback",
+        dataType: "jsonp",
+        data: {
+            q: "select * from rss where url=\""+url+"\"",
+            format: "json"
+        },
+        success: function (response) {
+            // código para listar las noticias del canal RSS
+        }
+    });
 };
 
-$.controller.cargaATOM = function(){
-    
+$.controller.cargaATOM = function(index){
+    $("#news").append('<h3>ATOM: '+$.canales.lista_canales[index].nombre+'</h3>');
+    $.ajax({
+        url: "http://query.yahooapis.com/v1/public/yql",
+        jsonp: "callback",
+        dataType: "jsonp",
+        data: {
+            q: "select * from atom where url=\""+url+"\"",
+            format: "json"
+        },
+        success: function (response) {
+            // código para listar las noticias del canal ATOM
+        }
+    });
 };
